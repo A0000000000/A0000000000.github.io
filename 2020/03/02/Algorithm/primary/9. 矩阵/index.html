@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="矩阵问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/Algorithm/primary/9.%20%E7%9F%A9%E9%98%B5/index.html">
+<meta property="og:site_name" content="A00000&#39;s Blog">
+<meta property="og:description" content="矩阵问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-01T06:07:31.968Z">
+<meta property="article:author" content="A00000">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/02/Algorithm/primary/9.%20%E7%9F%A9%E9%98%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>矩阵 | A00000's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A00000's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/Algorithm/primary/9.%20%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="A00000">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A00000's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          矩阵
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-02 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-02T00:00:00+08:00">2020-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-01 14:07:31" itemprop="dateModified" datetime="2020-04-01T14:07:31+08:00">2020-04-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="矩阵问题"><a href="#矩阵问题" class="headerlink" title="矩阵问题"></a>矩阵问题</h1><a id="more"></a>
+<h2 id="矩阵按层打印"><a href="#矩阵按层打印" class="headerlink" title="矩阵按层打印"></a>矩阵按层打印</h2><ul>
+<li>问题描述:<ul>
+<li>给定矩阵:<br>   1  2  3  4<br>   5  6  7  8<br>   9 10 11 12</li>
+<li>打印结果 1 2 3 4 8 12 11 10 9 5 6 7</li>
+</ul>
+</li>
+<li>思路:<ul>
+<li>每次只打印一框, 直到打印结束</li>
+</ul>
+</li>
+<li>代码:<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">spiralOrderPrint</span><span class="params">(arr [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">1</span> || <span class="built_in">len</span>(arr[<span class="number">0</span>]) &lt; <span class="number">1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	LT, RT, LB, RB := <span class="number">0</span>, <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span>,  <span class="built_in">len</span>(arr[<span class="number">0</span>]) - <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> LT &lt;= LB &amp;&amp; RT &lt;= RB &#123;</span><br><span class="line">		printEdge(arr, LT, RT, LB, RB)</span><br><span class="line">		LT++</span><br><span class="line">		RT++</span><br><span class="line">		LB--</span><br><span class="line">		RB--</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printEdge</span><span class="params">(arr [][]<span class="keyword">int</span>, LT, RT, LB, RB <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> LT == LB &#123;</span><br><span class="line">		<span class="keyword">for</span> ; RT &lt;= RB; RT++ &#123;</span><br><span class="line">			fmt.Println(arr[LT][RT])</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> RT == RB &#123;</span><br><span class="line">		<span class="keyword">for</span> ; LT &lt;= LB; LT++ &#123;</span><br><span class="line">			fmt.Println(arr[LT][RT])</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := RT; i &lt; RB; i++ &#123;</span><br><span class="line">		fmt.Println(arr[LT][i])</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := LT; i &lt; LB; i++ &#123;</span><br><span class="line">		fmt.Println(arr[i][RB])</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := RB; i &gt; RT; i-- &#123;</span><br><span class="line">		fmt.Println(arr[LB][i])</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := LB; i &gt; LT; i-- &#123;</span><br><span class="line">		fmt.Println(arr[i][RT])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="正方形矩阵顺时针旋转90度"><a href="#正方形矩阵顺时针旋转90度" class="headerlink" title="正方形矩阵顺时针旋转90度"></a>正方形矩阵顺时针旋转90度</h2><ul>
+<li>问题描述<ul>
+<li>给定矩阵:<br>   1  2  3  4<br>   5  6  7  8<br>   9 10 11 12<br>  13 14 15 16</li>
+<li>处理后的矩阵<br>  13  9  5  1<br>  14 10  6  2<br>  15 11  7  3<br>  16 12  8  4</li>
+</ul>
+</li>
+<li>思路:<ul>
+<li>每次只旋转一框, 直到旋转完成</li>
+</ul>
+</li>
+<li>代码:<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rotateMatrix</span><span class="params">(arr [][]<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) == <span class="number">0</span>  || <span class="built_in">len</span>(arr[<span class="number">0</span>]) == <span class="number">0</span> || <span class="built_in">len</span>(arr) != <span class="built_in">len</span>(arr[<span class="number">0</span>]) &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	LT, RT, LB, RB := <span class="number">0</span>, <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span>, <span class="built_in">len</span>(arr[<span class="number">0</span>]) - <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> LT &lt; LB &amp;&amp; RT &lt; RB &#123;</span><br><span class="line">		rotateEdge(arr, LT, RT, LB, RB)</span><br><span class="line">		LT++</span><br><span class="line">		RT++</span><br><span class="line">		LB--</span><br><span class="line">		RB--</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rotateEdge</span><span class="params">(arr [][]<span class="keyword">int</span>, LT, RT, LB, RB <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> LT == LB || RT == RB &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; RB - RT; i++] &#123;</span><br><span class="line">		arr[LT + i][RB], arr[LB][RB - i], arr[LB - i][RT], arr[LT][RT + i] = arr[LT][RT + i], arr[LT + i][RB], arr[LB][RB - i], arr[LB - i][RT]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="之字型打印矩阵"><a href="#之字型打印矩阵" class="headerlink" title="之字型打印矩阵"></a>之字型打印矩阵</h2><ul>
+<li>问题描述<ul>
+<li>给定矩阵:<br>   1  2  3  4<br>   5  6  7  8<br>   9 10 11 12<br>  13 14 15 16</li>
+<li>打印结果:<br>   1<br>   2  5<br>   9  6  3<br>   4  7  10  13<br>  14 11  8<br>  12 15<br>  16</li>
+</ul>
+</li>
+<li>思路: <ul>
+<li>每次只打印一条线, 直到打印完成</li>
+</ul>
+</li>
+<li>代码<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MatrixZigZag</span><span class="params">(arr [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) == <span class="number">0</span> || <span class="built_in">len</span>(arr[<span class="number">0</span>]) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	P1L, P1R, P2L, P2R := <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">	flag := <span class="literal">false</span></span><br><span class="line">	<span class="keyword">for</span> P1L &lt; <span class="built_in">len</span>(arr) &amp;&amp; P2L &lt; <span class="built_in">len</span>(arr) &amp;&amp; P1R &lt; <span class="built_in">len</span>(arr[<span class="number">0</span>]) &amp;&amp; P2R &lt; <span class="built_in">len</span>(arr[<span class="number">0</span>]) &#123;</span><br><span class="line">		printOneLine(arr, P1L, P1R, P2L, P2R, flag)</span><br><span class="line">		flag = !flag</span><br><span class="line">		<span class="keyword">if</span> P1R != <span class="built_in">len</span>(arr[<span class="number">0</span>]) - <span class="number">1</span> &#123;</span><br><span class="line">			P1R++</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			P1L++</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> P2L != <span class="built_in">len</span>(arr) - <span class="number">1</span> &#123;</span><br><span class="line">			P2L++</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			P2R++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printOneLine</span><span class="params">(arr [][]<span class="keyword">int</span>, P1L, P1R, P2L, P2R <span class="keyword">int</span>, P1ToP2 <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> P1L != P2L &amp;&amp; P1R != P2R &#123;</span><br><span class="line">		<span class="keyword">if</span> P1ToP2 &#123;</span><br><span class="line">			fmt.Print(arr[P1L][P1R], <span class="string">"  "</span>)</span><br><span class="line">			P1L++</span><br><span class="line">			P1R--</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			fmt.Print(arr[P2L][P2R], <span class="string">"  "</span>)</span><br><span class="line">			P2L--</span><br><span class="line">			P2R++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(arr[P1L][P1R])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="从一个行和列都已经排好序的二维数组中寻找指定元素是否存在"><a href="#从一个行和列都已经排好序的二维数组中寻找指定元素是否存在" class="headerlink" title="从一个行和列都已经排好序的二维数组中寻找指定元素是否存在"></a>从一个行和列都已经排好序的二维数组中寻找指定元素是否存在</h2><ul>
+<li>给定一个行和列都已经排好续的矩阵和一个数, 判断矩阵中是否有这个数<ul>
+<li>矩阵例:<br>1  3  5  7<br>2  6  8 10<br>4  9 10 12<ul>
+<li>数: 6</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>思路:<ol>
+<li>从右上往左下寻找<ul>
+<li>从矩阵右上角开始寻找</li>
+<li>如果数小于指定的数, 向下移动</li>
+<li>如果数大于指定的数, 向左移</li>
+</ul>
+</li>
+<li>从左下往右上寻找<ul>
+<li>从矩阵左下角开始寻找</li>
+<li>如果数小于指定数, 向右移动</li>
+<li>如果数大于指定数, 向上移动</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>代码:<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findNumInSortMatrix</span><span class="params">(arr [][]<span class="keyword">int</span>, num <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) == <span class="number">0</span> || <span class="built_in">len</span>(arr[<span class="number">0</span>]) == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>, <span class="number">-1</span></span><br><span class="line">	&#125;</span><br><span class="line">	x, y := <span class="built_in">len</span>(arr) - <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> x &gt;= <span class="number">0</span> &amp;&amp; y &lt; <span class="built_in">len</span>(arr[<span class="number">0</span>]) &#123;</span><br><span class="line">		<span class="keyword">if</span> arr[x][y] == num &#123;</span><br><span class="line">			<span class="keyword">return</span> x, y</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> arr[x][y] &gt; num &#123;</span><br><span class="line">			x--</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> arr[x][y] &lt; num &#123;</span><br><span class="line">			y++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>, <span class="number">-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8E%9F%E5%88%9B/" rel="tag"># 原创</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/01/Algorithm/primary/8.%20%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" rel="prev" title="栈和队列">
+      <i class="fa fa-chevron-left"></i> 栈和队列
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/03/Algorithm/primary/10.%20%E9%93%BE%E8%A1%A8/" rel="next" title="链表">
+      链表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵问题"><span class="nav-number">1.</span> <span class="nav-text">矩阵问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵按层打印"><span class="nav-number">1.1.</span> <span class="nav-text">矩阵按层打印</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正方形矩阵顺时针旋转90度"><span class="nav-number">1.2.</span> <span class="nav-text">正方形矩阵顺时针旋转90度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#之字型打印矩阵"><span class="nav-number">1.3.</span> <span class="nav-text">之字型打印矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从一个行和列都已经排好序的二维数组中寻找指定元素是否存在"><span class="nav-number">1.4.</span> <span class="nav-text">从一个行和列都已经排好序的二维数组中寻找指定元素是否存在</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">A00000</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://sunwufannn.github.io/" title="https:&#x2F;&#x2F;sunwufannn.github.io&#x2F;" rel="noopener" target="_blank">孙悟凡凡凡凡凡</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://liuyun000.gitee.io/" title="http:&#x2F;&#x2F;liuyun000.gitee.io&#x2F;" rel="noopener" target="_blank">流云</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://crainyday.gitee.io/" title="https:&#x2F;&#x2F;crainyday.gitee.io" rel="noopener" target="_blank">皈依</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">A00000</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

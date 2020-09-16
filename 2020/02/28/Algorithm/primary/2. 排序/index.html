@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="各种常见的基于比较的排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序">
+<meta property="og:url" content="http://yoursite.com/2020/02/28/Algorithm/primary/2.%20%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="A00000&#39;s Blog">
+<meta property="og:description" content="各种常见的基于比较的排序">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-07T09:39:04.082Z">
+<meta property="article:author" content="A00000">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/28/Algorithm/primary/2.%20%E6%8E%92%E5%BA%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>排序 | A00000's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A00000's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/28/Algorithm/primary/2.%20%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="A00000">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A00000's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          排序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-02-28T00:00:00+08:00">2020-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-07 17:39:04" itemprop="dateModified" datetime="2020-03-07T17:39:04+08:00">2020-03-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="各种常见的基于比较的排序"><a href="#各种常见的基于比较的排序" class="headerlink" title="各种常见的基于比较的排序"></a>各种常见的基于比较的排序</h1><a id="more"></a>
+<ul>
+<li>稳定性的划分标准: 排序前后相同的值的相对次序会不会被打乱</li>
+</ul>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bubbleSort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> end := <span class="built_in">len</span>(arr); end &gt; <span class="number">0</span>; end-- &#123;</span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; end; i++ &#123;</span><br><span class="line">			<span class="keyword">if</span> arr[i] &gt; arr[i+<span class="number">1</span>] &#123;</span><br><span class="line">				tmp := arr[i]</span><br><span class="line">				arr[i] = arr[i + <span class="number">1</span>]</span><br><span class="line">				arr[i + <span class="number">1</span>] = tmp</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><ol>
+<li>时间复杂度:<ul>
+<li>外层for循环执行n, 内层for循环执行(1+2+3+…+n-1), 所以时间复杂度为O(N^2)</li>
+</ul>
+</li>
+<li>空间复杂度:<ul>
+<li>只申请了一个用于交换的临时变量, 复杂度为O(1)</li>
+</ul>
+</li>
+</ol>
+<h3 id="是稳定性的排序"><a href="#是稳定性的排序" class="headerlink" title="是稳定性的排序"></a>是稳定性的排序</h3><h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">selectionSort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">1</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(arr); i++ &#123;</span><br><span class="line">		minIndex := i</span><br><span class="line">		<span class="keyword">for</span> j := i + <span class="number">1</span>; j &lt; <span class="built_in">len</span>(arr); j++ &#123;</span><br><span class="line">			<span class="keyword">if</span> arr[minIndex] &gt; arr[j] &#123;</span><br><span class="line">				minIndex = j</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		tmp := arr[i]</span><br><span class="line">		arr[i] = arr[minIndex]</span><br><span class="line">		arr[minIndex] = tmp</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度-1"><a href="#复杂度-1" class="headerlink" title="复杂度"></a>复杂度</h3><ol>
+<li>时间复杂度:<ul>
+<li>外层for循环执行n次, 内层for循环执行(n-1+n-2+…+3+2+1), 所以时间复杂度为O(N^2)</li>
+</ul>
+</li>
+<li>空间复杂度:<ul>
+<li>只申请了一个用于交换的临时变量, 复杂度为O(1)</li>
+</ul>
+</li>
+</ol>
+<h3 id="不是稳定性的排序"><a href="#不是稳定性的排序" class="headerlink" title="不是稳定性的排序"></a>不是稳定性的排序</h3><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertSort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt; <span class="built_in">len</span>(arr); i++ &#123;</span><br><span class="line">		<span class="keyword">for</span> j := i; j &gt; <span class="number">0</span>; j-- &#123;</span><br><span class="line">			<span class="keyword">if</span> arr[j] &lt; arr[j - <span class="number">1</span>] &#123;</span><br><span class="line">				tmp := arr[j]</span><br><span class="line">				arr[j] = arr[j - <span class="number">1</span>]</span><br><span class="line">				arr[j - <span class="number">1</span>] = tmp</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度-2"><a href="#复杂度-2" class="headerlink" title="复杂度"></a>复杂度</h3><ol>
+<li>时间复杂度:<ul>
+<li>当数据为有序时, 插入排序的复杂度为O(N), 外层for循环执行n次, 内层for循环不执行</li>
+<li>当数据为逆序时, 插入排序的复杂度为O(N^2), 外层for循环执行n次, 内层for循环执行(1+2+3+..+n-1)</li>
+</ul>
+</li>
+<li>空间复杂度:<ul>
+<li>只申请了一个用于交换的临时变量, 复杂度为O(1)</li>
+</ul>
+</li>
+</ol>
+<h3 id="是稳定性排序"><a href="#是稳定性排序" class="headerlink" title="是稳定性排序"></a>是稳定性排序</h3><h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mergeSort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	sortProcess(arr, <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortProcess</span><span class="params">(arr[] <span class="keyword">int</span>, left, right <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> left == right &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	mid := (left + right) / <span class="number">2</span></span><br><span class="line">	sortProcess(arr, left, mid)</span><br><span class="line">	sortProcess(arr, mid + <span class="number">1</span>, right)</span><br><span class="line">	<span class="keyword">var</span> tmp []<span class="keyword">int</span></span><br><span class="line">	i, j :=left, mid + <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> i &lt;= mid &amp;&amp; j &lt;= right &#123;</span><br><span class="line">		<span class="keyword">if</span> arr[i] &lt;= arr[j] &#123;</span><br><span class="line">			tmp = <span class="built_in">append</span>(tmp, arr[i])</span><br><span class="line">			i++</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			tmp = <span class="built_in">append</span>(tmp, arr[j])</span><br><span class="line">			j++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i &lt;= mid &#123;</span><br><span class="line">		tmp = <span class="built_in">append</span>(tmp, arr[i])</span><br><span class="line">		i++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> j &lt;= right &#123;</span><br><span class="line">		tmp = <span class="built_in">append</span>(tmp, arr[j])</span><br><span class="line">		j++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i, j = <span class="number">0</span>, left; i &lt; <span class="built_in">len</span>(tmp) &amp;&amp; j &lt;= right; i,j = i + <span class="number">1</span>, j + <span class="number">1</span> &#123;</span><br><span class="line">		arr[j] = tmp[i]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度-3"><a href="#复杂度-3" class="headerlink" title="复杂度"></a>复杂度</h3><ol>
+<li>时间复杂度:<ul>
+<li>由代码分析可得公式: T(N) = 2 * T(N/2) + O(N), 所以时间复杂度为O(N * logN)</li>
+</ul>
+</li>
+<li>空间复杂度:<ul>
+<li>O(N), 需要一个和原数组的相同的辅助数组</li>
+</ul>
+</li>
+</ol>
+<h3 id="是稳定性排序-1"><a href="#是稳定性排序-1" class="headerlink" title="是稳定性排序"></a>是稳定性排序</h3><h2 id="快速排续"><a href="#快速排续" class="headerlink" title="快速排续"></a>快速排续</h2><h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	process(arr, <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">process</span><span class="params">(arr []<span class="keyword">int</span>, L, R <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> L &lt; R &#123;</span><br><span class="line">		left, right := partition(arr, L, R)</span><br><span class="line">		process(arr, L, left)</span><br><span class="line">		process(arr, right, R)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">partition</span><span class="params">(arr []<span class="keyword">int</span>, L, R <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	less, more := L - <span class="number">1</span>, R + <span class="number">1</span></span><br><span class="line">	index := L</span><br><span class="line">	value := arr[L + rand.Intn(R - L + <span class="number">1</span>)]</span><br><span class="line">	<span class="keyword">for</span> index &lt; more &#123;</span><br><span class="line">		<span class="keyword">if</span> arr[index] &lt; value &#123;</span><br><span class="line">			arr[less + <span class="number">1</span>], arr[index] = arr[index], arr[less + <span class="number">1</span>]</span><br><span class="line">			less++</span><br><span class="line">			index++</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> arr[index] &gt; value &#123;</span><br><span class="line">			arr[more - <span class="number">1</span>], arr[index] = arr[index], arr[more - <span class="number">1</span>]</span><br><span class="line">			more--</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			index++</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> less, more</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度-4"><a href="#复杂度-4" class="headerlink" title="复杂度"></a>复杂度</h3><ol>
+<li>时间复杂度:<ul>
+<li>复杂度为O(N*logN), 和归并排序的复杂度一致</li>
+</ul>
+</li>
+<li>空间复杂度:<ul>
+<li>复杂度为O(logN), 每次递归都需要记录划分点</li>
+</ul>
+</li>
+</ol>
+<h3 id="不是稳定性排序"><a href="#不是稳定性排序" class="headerlink" title="不是稳定性排序"></a>不是稳定性排序</h3><h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">heapSort</span><span class="params">(arr []<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> arr == <span class="literal">nil</span> || <span class="built_in">len</span>(arr) &lt; <span class="number">2</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(arr); i++ &#123;</span><br><span class="line">		heapInsert(arr, i)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> heapSize := <span class="built_in">len</span>(arr) - <span class="number">1</span>; heapSize &gt; <span class="number">0</span>; heapSize-- &#123;</span><br><span class="line">		arr[<span class="number">0</span>], arr[heapSize] = arr[heapSize], arr[<span class="number">0</span>]</span><br><span class="line">		heapify(arr, <span class="number">0</span>, heapSize)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">heapInsert</span><span class="params">(arr []<span class="keyword">int</span>, index <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">for</span> arr[index] &gt; arr[(index - <span class="number">1</span>) / <span class="number">2</span>] &#123;</span><br><span class="line">		arr[index], arr[(index - <span class="number">1</span>) / <span class="number">2</span>] = arr[(index - <span class="number">1</span>)/ <span class="number">2</span>], arr[index]</span><br><span class="line">		index = (index - <span class="number">1</span>) / <span class="number">2</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">heapify</span><span class="params">(arr []<span class="keyword">int</span>, index, heapSize <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">	left := index * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> left &lt; heapSize &#123;</span><br><span class="line">		target := left</span><br><span class="line">		<span class="keyword">if</span> left + <span class="number">1</span> &lt; heapSize &amp;&amp; arr[left + <span class="number">1</span>] &gt; arr[left] &#123;</span><br><span class="line">			target = left + <span class="number">1</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> arr[index] &gt;= arr[target] &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		arr[index], arr[target] = arr[target], arr[index]</span><br><span class="line">		index = target</span><br><span class="line">		left = index * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度-5"><a href="#复杂度-5" class="headerlink" title="复杂度"></a>复杂度</h3><ol>
+<li>时间复杂度:<ul>
+<li>复杂度为O(N*logN)</li>
+</ul>
+</li>
+<li>空间复杂度:<ul>
+<li>复杂度为O(1)</li>
+</ul>
+</li>
+</ol>
+<h3 id="不是稳定性排序-1"><a href="#不是稳定性排序-1" class="headerlink" title="不是稳定性排序"></a>不是稳定性排序</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8E%9F%E5%88%9B/" rel="tag"># 原创</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/18/HelloWorld/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/28/Algorithm/primary/3.%20%E5%AF%B9%E6%95%B0%E5%99%A8/" rel="next" title="对数器">
+      对数器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#各种常见的基于比较的排序"><span class="nav-number">1.</span> <span class="nav-text">各种常见的基于比较的排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序"><span class="nav-number">1.1.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.1.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度"><span class="nav-number">1.1.2.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是稳定性的排序"><span class="nav-number">1.1.3.</span> <span class="nav-text">是稳定性的排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择排序"><span class="nav-number">1.2.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不是稳定性的排序"><span class="nav-number">1.2.3.</span> <span class="nav-text">不是稳定性的排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序"><span class="nav-number">1.3.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是稳定性排序"><span class="nav-number">1.3.3.</span> <span class="nav-text">是稳定性排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归并排序"><span class="nav-number">1.4.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是稳定性排序-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">是稳定性排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排续"><span class="nav-number">1.5.</span> <span class="nav-text">快速排续</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不是稳定性排序"><span class="nav-number">1.5.3.</span> <span class="nav-text">不是稳定性排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆排序"><span class="nav-number">1.6.</span> <span class="nav-text">堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度-5"><span class="nav-number">1.6.2.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不是稳定性排序-1"><span class="nav-number">1.6.3.</span> <span class="nav-text">不是稳定性排序</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">A00000</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://sunwufannn.github.io/" title="https:&#x2F;&#x2F;sunwufannn.github.io&#x2F;" rel="noopener" target="_blank">孙悟凡凡凡凡凡</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://liuyun000.gitee.io/" title="http:&#x2F;&#x2F;liuyun000.gitee.io&#x2F;" rel="noopener" target="_blank">流云</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://crainyday.gitee.io/" title="https:&#x2F;&#x2F;crainyday.gitee.io" rel="noopener" target="_blank">皈依</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">A00000</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

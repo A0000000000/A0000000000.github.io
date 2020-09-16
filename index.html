@@ -154,6 +154,147 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/16/Java/Volatile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="A00000">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A00000's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/16/Java/Volatile/" class="post-title-link" itemprop="url">volatile</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-16 00:00:00 / 修改时间：09:43:39" itemprop="dateCreated datePublished" datetime="2020-09-16T00:00:00+08:00">2020-09-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><h2 id="volatile-特点"><a href="#volatile-特点" class="headerlink" title="volatile 特点"></a>volatile 特点</h2><ul>
+<li>保证可见性</li>
+<li>不保证原子性</li>
+<li>禁用指令重排</li>
+</ul>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><ol>
+<li>JMM 内存模型<ul>
+<li>每一个 Java 程序都会有一个主内存空间</li>
+<li>所有对象的分配都是在主内存空间中申请</li>
+<li>每一个线程都会有自己的工作内存</li>
+<li>当某个线程访问某个对象时, 会将该对象的数据拷贝一份到自己的工作内存</li>
+</ul>
+</li>
+<li>由于 JMM 内存模型的原因, 默认情况下各个线程在访问同一个变量时, 各个线程不可见</li>
+<li>当变量被 volatile 修饰时, 某个线程在修改该变量后会通知其他线程修改这个变量, 这个叫做可见性</li>
+</ol>
+<h2 id="不保证原子性"><a href="#不保证原子性" class="headerlink" title="不保证原子性"></a>不保证原子性</h2><ul>
+<li>当多个线程同时对一个变量进行修改操作时, volatile 修饰的变量所生成的字节码并不会同时执行完, 而是分成好几条指令, 他不能保证每次操作都是原子性的</li>
+<li>解决方法: 使用 JUC 下的类</li>
+</ul>
+<h3 id="禁止指令重排"><a href="#禁止指令重排" class="headerlink" title="禁止指令重排"></a>禁止指令重排</h3><ul>
+<li><p>指令重排: 在单线程下, 编译器会分析代码的流程, 在不改变<strong>数据依赖</strong>的前提下, 会对指令进行重排, 这种重排在单线程下是没有问题的, 但是多线程下就可能出现问题</p>
+</li>
+<li><p>使用 volatile 修饰变量, 编译器会禁用指令重排, 严格按照代码的执行流程去执行</p>
+</li>
+<li><p>例:</p>
+<ol>
+<li>单例模式:<ul>
+<li>一般单例模式使用的是双端检锁机制来保证安全的<ul>
+<li>双端检锁: 即获取实例时, 首先检测是否为空, 如果为空, 加锁, 然后再判断是否为空, 如果为空, 创建实例</li>
+</ul>
+</li>
+<li>一般而言创建一个对象都是由如下三个步骤完成:<ol>
+<li>申请内存空间</li>
+<li>使用构造函数初始化内存</li>
+<li>将内存地址返回给引用</li>
+</ol>
+</li>
+<li>但是由于指令重排的存在, 第二, 第三步骤可能被重排, 导致即使实例不为空, 但是该对象并没有初始化完成, 此时调用其实例方法, 依然会抛出空指针异常</li>
+<li>解决方法: 使用 volatile 关键词修饰变量, 禁用编译器对指令重排</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="JUC-下的类"><a href="#JUC-下的类" class="headerlink" title="JUC 下的类"></a>JUC 下的类</h2><ul>
+<li>以 AtomicInteger 为例</li>
+</ul>
+<ol>
+<li>JUC 下的类给我们提供了内建数据类型能够保证原子性操作的方法</li>
+<li>其实现原理为 CAS(此过程称为自旋锁)<ul>
+<li>首先取得待修改变量主内存的值</li>
+<li>然后修改时比较取得的值与当前主内存的值是否相同</li>
+<li>如果相同, 修改, 不同重复上面两个过程</li>
+</ul>
+</li>
+<li>自旋锁问题:(ABA 问题)<ul>
+<li>当有两个线程(A 和 B)同时修改一个变量</li>
+<li>其中一个线程(A)运行速度慢, 而另一个线程(B)运行速度快</li>
+<li>当 A 取得值时, B 将该值修改了两次, 并且第二次将值改回原来的内容</li>
+<li>此时 A 在修改该值时, 会认为该值没有被改过, A 能修改成功</li>
+<li>一般情况, 这个问题并不会有什么危害, 但是可能会出现想不到的问题</li>
+</ul>
+</li>
+<li>解决 ABA 问题:<ul>
+<li>在某个线程获取值时, 同时获取上次修改的时间戳(或版本号), 在修改时, 同时比较值和时间戳(版本号)即可避免 ABA 问题</li>
+</ul>
+</li>
+<li>自定义数据类型保证操作原子性的方法<ul>
+<li>使用原子引用(不能避免 ABA 问题): AtomicReference<T></li>
+<li>使用带时间戳的原子引用(避免 ABA 问题): AtomicStampedReference<T></li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/10/LeetCode/%E7%AC%AC32%E5%9C%BA%E5%8F%8C%E5%91%A8%E8%B5%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -855,92 +996,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/Algorithm/primary/16.%20%E9%80%92%E5%BD%92%E5%92%8C%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="A00000">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="A00000's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/06/Algorithm/primary/16.%20%E9%80%92%E5%BD%92%E5%92%8C%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">递归和动态规划</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2020-03-06T00:00:00+08:00">2020-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-07 17:39:04" itemprop="dateModified" datetime="2020-03-07T17:39:04+08:00">2020-03-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="递归和动态规划问题"><a href="#递归和动态规划问题" class="headerlink" title="递归和动态规划问题"></a>递归和动态规划问题</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/06/Algorithm/primary/16.%20%E9%80%92%E5%BD%92%E5%92%8C%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1006,20 +1066,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
